@@ -1,7 +1,14 @@
 import axios from 'axios';
 
+// Normalize base URL: support VITE_API_BASE_URL (Render backend URL) or default to '/api' for local proxy
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+const sanitizedBaseUrl = rawBaseUrl.replace(/\/+$/, '');
+const baseURL = sanitizedBaseUrl.endsWith('/api') || sanitizedBaseUrl === '/api'
+  ? sanitizedBaseUrl
+  : `${sanitizedBaseUrl}/api`;
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },

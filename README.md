@@ -16,7 +16,8 @@
 8. [Core Workflows & Features](#-core-workflows--features)
 9. [Local Development & Setup Guide](#-local-development--setup-guide)
 10. [Docker Containerized Deployment](#-docker-containerized-deployment)
-11. [Verification & Test Results](#-verification--test-results)
+11. [Render Cloud Deployment (render.com)](#-render-cloud-deployment-rendercom)
+12. [Verification & Test Results](#-verification--test-results)
 
 ---
 
@@ -252,6 +253,15 @@ docker compose ps
 * **Frontend Web Application**: `http://localhost:3000`
 * **Spring Boot API**: `http://localhost:8080/api`
 * **SQL Server Database**: `localhost:1433`
+
+---
+
+## ☁️ Render Cloud Deployment (render.com)
+
+The project includes 100% production-ready configuration for [Render](https://render.com) with PostgreSQL support, dynamic port binding, smart database URL adapter, and SPA client-side routing.
+
+* **Blueprint IaC**: [`render.yaml`](render.yaml) automatically provisions Render PostgreSQL, Spring Boot Docker Web Service, and React Static Site with 1 click.
+* **Step-by-Step Guide**: See [`RENDER_DEPLOY_GUIDE.md`](RENDER_DEPLOY_GUIDE.md) for full walkthroughs, environment variables checklist, and troubleshooting.
 
 ---
 

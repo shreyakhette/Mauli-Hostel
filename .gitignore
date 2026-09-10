@@ -1,0 +1,20 @@
+# Compiled backend artifacts
+**/target/
+*.class
+
+# Frontend dependencies & build cache
+**/node_modules/
+.npm
+.eslintcache
+
+# Environment & Local secrets
+.env
+.env.local
+*.local
+
+# IDE & OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db

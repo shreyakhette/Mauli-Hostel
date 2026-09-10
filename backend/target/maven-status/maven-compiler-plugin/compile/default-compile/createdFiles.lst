@@ -7,6 +7,7 @@ com\sakhi\hostel\dto\BedDto.class
 com\sakhi\hostel\service\DataInitializationService.class
 com\sakhi\hostel\entity\Room$RoomStatus.class
 com\sakhi\hostel\entity\Notification.class
+com\sakhi\hostel\config\DatabaseConfig.class
 com\sakhi\hostel\entity\Bus.class
 com\sakhi\hostel\controller\AttendanceController.class
 com\sakhi\hostel\repository\AuditLogRepository.class
