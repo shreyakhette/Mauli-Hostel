@@ -4,6 +4,8 @@
 
 # Frontend dependencies & build cache
 **/node_modules/
+dist/
+**/dist/
 .npm
 .eslintcache
 
