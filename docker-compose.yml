@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Microsoft SQL Server Database
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sakhi_mssql
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Sakhi@Secure2026#
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Sakhi@Secure2026# -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - sakhi_network
+
+  # Spring Boot 3.3.4 Backend (Java 21)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sakhi_backend
+    restart: unless-stopped
+    depends_on:
+      mssql:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_URL=jdbc:sqlserver://mssql:1433;databaseName=sakhi_hostel_db;encrypt=true;trustServerCertificate=true
+      - DB_USERNAME=sa
+      - DB_PASSWORD=Sakhi@Secure2026#
+      - JWT_SECRET=9a6d8f2b4c1e7a3d5f8b2c4e6a0d2f4b6c8e0a2d4f6b8c0e2a4d6f8b0c2e4a6d
+      - JWT_EXPIRATION=86400000
+    ports:
+      - "8080:8080"
+    networks:
+      - sakhi_network
+
+  # React 18 Frontend (Vite + Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sakhi_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - sakhi_network
+
+volumes:
+  mssql_data:
+    driver: local
+
+networks:
+  sakhi_network:
+    driver: bridge
